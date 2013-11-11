@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<title>House Automation Project</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-latest.js">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script>
+function checker()
+{
+$("div").load("http://localhost:8000", $("#targetForm").serializeArray());
+}
+</script>
+</head>
+
+<body>
+<h1>House Automation Project</h1>
+
+<form id="targetForm">
+Temperature(F) <input type="text" name="temperature" id="temperature"></input>
+<input type="button" value="Set" onclick="checker()"></input>
+</form>
+<br>
+Status: <div></div>
+</body>
+</html>
