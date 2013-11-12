@@ -4,12 +4,38 @@
 <title>House Automation Project</title>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-latest.js">
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css" />
+<style>
+#slider{
+	width:300px; margin:15px;
+}
+</style>
 <script>
+$(document).ready(function()
+{
+	$.getJSON('./houseConfig.json', function(data){
+		$('#temperature').val(data['temperature']);
+		//alert($('#slider').slider("value"));
+		$('#slider').slider("value",data['temperature']);
+	}); 
+});
+
+$(function() {
+	$('#slider').slider({
+		range: "max", min:30, max:80,
+		 slide: function(event, ui){
+		$('#temperature').val(ui.value);
+}
+	});
+});
+
 function checker()
 {
-$("div").load("http://localhost:8000", $("#targetForm").serializeArray());
+var tempValue=$('#temperature').val();
+$('#statusFromServer').load("http://localhost:8000", $("#targetForm").serializeArray());
 }
 </script>
 </head>
@@ -18,10 +44,11 @@ $("div").load("http://localhost:8000", $("#targetForm").serializeArray());
 <h1>House Automation Project</h1>
 
 <form id="targetForm">
-Temperature(F) <input type="text" name="temperature" id="temperature"></input>
+Current Temperature(F) <input type="text" name="temperature" id="temperature" readonly></input>
 <input type="button" value="Set" onclick="checker()"></input>
 </form>
+<div id="slider"></div>
 <br>
-Status: <div></div>
+<div id="statusFromServer"></div>
 </body>
 </html>
