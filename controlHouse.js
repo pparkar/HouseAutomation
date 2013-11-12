@@ -1,6 +1,5 @@
 /**
 Global Include
-Prerequisite: npm install connect
 */
 var http = require('http');
 var url = require('url');
@@ -49,6 +48,7 @@ EG: http://localhost:8000/temperature?value=65
 http.createServer(function (request, response) {
 response.writeHead(200, {'Content-Type': 'text/html','Access-Control-Allow-Origin' : '*'});
 if(request.method == 'POST'){
+//   console.log("**"+request.data);
    var req_data = '';
    request.on('data', function(data){
 	  req_data += data; 
@@ -76,8 +76,8 @@ if(request.method == 'POST'){
 	console.log("entity to compare "+eachParam[1]);
 	if(eachParam.length>0 && eachParam[1] && (eachParam[1] == "temperature")){
 		var newTemp = value.split("=");
-		loadConfig(newTemp,function(callback){
-//			console.log(eachParam[1]+","+callback);
+		loadConfig(newTemp[1],function(callback){
+//			console.log(newTemp[1]+","+callback);
 			response.end(callback,'utf-8');
 		});
 	}else{
